@@ -73,7 +73,7 @@ func sendTrigger(config *Config, address, source string) {
 
 	payload := map[string]string{
 		"address": ipAddress,
-		"source":  hostname,
+		"source":  "agent:%"+hostname+"%"
 	}
 
 	// Сериализация payload в JSON
@@ -188,7 +188,7 @@ func handleRequest(conn net.Conn, protocol string, port int, config *Config, add
 	}
 }
 
-// Обработчик с безопасной горутиной
+// Обработчик с безопасной горутиной (программа не завершает работу)
 func safeHandleRequest(conn net.Conn, protocol string, port int, config *Config, addr ...string) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -220,7 +220,7 @@ func logToFile(message string) {
 	}
 	defer file.Close()
 
-	// Удаляем старые логи старше 7 дней
+	// Удаляем старые логи
 	removeOldLogs()
 
 	// Создаем лог-запись
