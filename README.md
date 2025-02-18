@@ -1,19 +1,21 @@
-HoneypotAgent
 
-Описание
+# HoneypotAgent
 
-HoneypotAgent – это агент для мониторинга сетевой активности, который прослушивает заданные TCP и UDP порты и отправляет уведомления о входящих соединениях на api.
+## Описание
 
-Функциональность
+**HoneypotAgent** – это агент для мониторинга сетевой активности, который прослушивает заданные TCP и UDP порты и отправляет уведомления о входящих соединениях на API.
 
-Читает конфигурацию из JSON-файла HoneypotAgent.json.
-Прослушивает указанные в конфигурации TCP и UDP порты.
-Фиксирует входящие соединения и отправляет HTTP-запрос на сервер триггеров.
-Ведёт логирование событий в файл logs/honeypot_agent.log.
-Автоматически удаляет старые логи (старше 7 дней).
+## Функциональность
 
-Формат конфигурации (json)
+- Читает конфигурацию из JSON-файла `HoneypotAgent.json`.
+- Прослушивает указанные в конфигурации TCP и UDP порты.
+- Фиксирует входящие соединения и отправляет HTTP-запрос на сервер триггеров.
+- Ведёт логирование событий в файл `logs/honeypot_agent.log`.
+- Автоматически удаляет старые логи (старше 7 дней).
 
+## Формат конфигурации (JSON)
+
+```json
 {
   "listenports": {
     "tcp": [80, 443],
@@ -23,45 +25,60 @@ HoneypotAgent – это агент для мониторинга сетевой
     "url": "http://example.com/trigger"
   }
 }
+```
 
-listenports.tcp – список TCP-портов для прослушивания.
-listenports.udp – список UDP-портов для прослушивания.
-trigger.url – api, куда отправляются уведомления о входящих соединениях.
+- **listenports.tcp** – список TCP-портов для прослушивания.
+- **listenports.udp** – список UDP-портов для прослушивания.
+- **trigger.url** – API, куда отправляются уведомления о входящих соединениях.
 
-Логирование
+## Логирование
 
-Логи записываются в logs/honeypot_agent.log.
-Формат записи: YYYY-MM-DD HH:MM:SS - Сообщение
-Если лог-файл отсутствует, он создаётся автоматически.
-Логи старше 7 дней удаляются автоматически
+- Логи записываются в `logs/honeypot_agent.log`.
+- Формат записи: `YYYY-MM-DD HH:MM:SS - Сообщение`.
+- Если лог-файл отсутствует, он создаётся автоматически.
+- Логи старше 7 дней удаляются автоматически.
 
-Запуск
+## Запуск
 
-Перемещаемся в нужную директорию: mkdir /root/honeypotagent/ && cd /root/honeypotagent/
+1. Перемещаемся в нужную директорию:
 
-Скачиваем программу:
-    linux:
-        64: wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentLinuxamd64.tar.gz
-        32: wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentLinux386.tar.gz
-    freeBSD:
-        64: wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentLinuxamd64.tar.gz
-        32: wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentFreebsd386.tar.gz
-    win:
-        64: https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentWindowsamd64.tar.gz
-        32: https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentWindows386.tar.gz
+   ```mkdir /root/honeypotagent/ && cd /root/honeypotagent/
+   ```
 
-Рапаковываем: tar -xzf HoneypotAgentLinuxamd64.tar.gz
+2. Скачиваем программу:
 
-Создаём и редактируем config в json формате:
-    Пример конфига:
-        {
-            "listenports": {
-                "tcp": [21, 22, 54321],
-                "udp": [5, 6, 7]
-            },
-            "trigger": {
-                "url": "http://honey.cocobri.ru:8088/add-host?token=95a62fbd-76e3-46f2-b454-12d22679916f"
-            }
-        }
-        
-запускаем ./HoneypotAgentLinuxamd64
+   - Для Linux:
+     - 64-бит: `wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentLinuxamd64.tar.gz`
+     - 32-бит: `wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentLinux386.tar.gz`
+   - Для FreeBSD:
+     - 64-бит: `wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentLinuxamd64.tar.gz`
+     - 32-бит: `wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentFreebsd386.tar.gz`
+   - Для Windows:
+     - 64-бит: `wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentWindowsamd64.tar.gz`
+     - 32-бит: `wget https://github.com/AsTR0I/HoneypotAgent/blob/main/honeypot-client/builds/HoneypotAgentWindows386.tar.gz`
+
+3. Рапаковываем архив:
+
+   ```tar -xzf HoneypotAgentLinuxamd64.tar.gz
+   ```
+
+4. Создаём и редактируем конфигурационный файл в формате JSON:
+
+   Пример конфигурации:
+
+   ```json
+   {
+     "listenports": {
+       "tcp": [21, 22, 54321],
+       "udp": [5, 6, 7]
+     },
+     "trigger": {
+       "url": "http://honey.cocobri.ru:8088/add-host?token=95a62fbd-76e3-46f2-b454-12d22679916f"
+     }
+   }
+   ```
+
+5. Запускаем агент:
+
+   ```./HoneypotAgentLinuxamd64
+   ```
