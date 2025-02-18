@@ -42,7 +42,8 @@
 
 1. Перемещаемся в нужную директорию:
 
-   ```mkdir /root/honeypotagent/ && cd /root/honeypotagent/
+   ```bash
+   mkdir /root/honeypotagent/ && cd /root/honeypotagent/
    ```
 
 2. Скачиваем программу:
@@ -59,7 +60,8 @@
 
 3. Рапаковываем архив:
 
-   ```tar -xzf HoneypotAgentLinuxamd64.tar.gz
+   ```bash
+   tar -xzf HoneypotAgentLinuxamd64.tar.gz
    ```
 
 4. Создаём и редактируем конфигурационный файл в формате JSON:
@@ -80,5 +82,6 @@
 
 5. Запускаем агент:
 
-   ```./HoneypotAgentLinuxamd64
+   ```bash
+   ./HoneypotAgentLinuxamd64
    ```
