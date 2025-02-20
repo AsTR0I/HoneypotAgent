@@ -73,7 +73,7 @@ func sendTrigger(config *Config, address, source string) {
 
 	payload := map[string]string{
 		"address": ipAddress,
-		"source":  "agent:%"+hostname+"%"
+		"source":  "agent:%"+hostname+"%",
 	}
 
 	// Сериализация payload в JSON
