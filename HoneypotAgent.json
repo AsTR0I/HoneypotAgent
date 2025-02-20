@@ -1,0 +1,9 @@
+{
+  "listenports": {
+    "tcp": [21, 22, 54321],
+    "udp": [5, 6, 7]
+  },
+  "trigger": {
+    "url": "http://honey.cocobri.ru:8088/add-host?token=95a62fbd-76e3-46f2-b454-12d22679916f"
+  }
+}
